@@ -1,0 +1,6 @@
+{
+  "name": "SnapAction AI - Screenshot to Action",
+  "description": "Universal AI action layer turning screenshots into prompts, job applications, replies, events, and workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
