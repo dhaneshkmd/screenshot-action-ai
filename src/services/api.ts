@@ -80,33 +80,46 @@ function generateClientFallbackAnalysis(
   imageBase64: string,
   options: { processOnce?: boolean; userIntentHint?: string } = {}
 ): ScreenshotAnalysis {
-  let contentType: ScreenshotContentType = 'job_vacancy';
-  let title = 'HSE Lead Manager (Health, Safety & Environment)';
+  let contentType: ScreenshotContentType = 'document_note';
+  let title = 'Document & Text Capture';
   let summary =
-    'Job vacancy for HSE Lead Manager at Apex Energy & Infra Ltd in Dubai, UAE. Requires NEBOSH International Diploma, 8+ years experience, and ISO 45001 compliance. Salary $95,000 - $125,000 /yr.';
+    'Captured visual document containing headline, text, and contact references. Tap Ask AI or Action Router to process.';
   let entities: any = {
-    job_title: 'HSE Lead Manager',
-    company_or_merchant: 'Apex Energy & Infra Ltd.',
-    location_or_venue: 'Dubai, United Arab Emirates',
-    dates_or_deadlines: 'Nov 15, 2026',
-    prices_or_salary: '$95,000 - $125,000 /yr',
-    emails: ['recruitment@apexenergy-uae.com'],
-    phones: ['+971 4 882 4910'],
-    urls: ['https://apexenergy-uae.com/careers'],
-    key_skills_or_tags: ['NEBOSH', 'ISO 45001', 'HAZOP', 'Safety Leadership'],
+    key_skills_or_tags: ['Document', 'Text Capture', 'Mobile Scan'],
   };
+  let sensitiveDetected = false;
+  let sensitiveWarning: string | undefined = undefined;
 
-  const str = imageBase64.toLowerCase();
-  if (str.includes('dashboard') || str.includes('latency') || str.includes('kpi') || str.includes('token')) {
+  // Only check SVG sample contents if it is an actual SVG data URI
+  const isSvg = imageBase64.startsWith('data:image/svg+xml');
+  const decodedText = isSvg ? decodeURIComponent(imageBase64) : '';
+
+  if (isSvg && (decodedText.includes('Apex Energy') || decodedText.includes('HSE Lead Manager'))) {
+    contentType = 'job_vacancy';
+    title = 'HSE Lead Manager (Health, Safety & Environment)';
+    summary =
+      'Job vacancy for HSE Lead Manager at Apex Energy & Infra Ltd in Dubai, UAE. Requires NEBOSH International Diploma, 8+ years experience, and ISO 45001 compliance. Salary $95,000 - $125,000 /yr.';
+    entities = {
+      job_title: 'HSE Lead Manager',
+      company_or_merchant: 'Apex Energy & Infra Ltd.',
+      location_or_venue: 'Dubai, United Arab Emirates',
+      dates_or_deadlines: 'Nov 15, 2026',
+      prices_or_salary: '$95,000 - $125,000 /yr',
+      emails: ['recruitment@apexenergy-uae.com'],
+      phones: ['+971 4 882 4910'],
+      urls: ['https://apexenergy-uae.com/careers'],
+      key_skills_or_tags: ['NEBOSH', 'ISO 45001', 'HAZOP', 'Safety Leadership'],
+    };
+  } else if (isSvg && (decodedText.includes('Dashboard') || decodedText.includes('Active AI Agents'))) {
     contentType = 'ui_design';
-    title = 'SaaS Monitoring Dashboard';
+    title = 'SaaS Analytics Dashboard';
     summary = 'Modern dark-mode SaaS monitoring interface displaying active AI agents, latency metrics, and API token billing.';
     entities = {
       company_or_merchant: 'Apex Cloud Systems',
       prices_or_salary: '$0.0003 / token',
       key_skills_or_tags: ['React', 'Tailwind CSS', 'Charts', 'KPI Cards'],
     };
-  } else if (str.includes('whatsapp') || str.includes('chat') || str.includes('message') || str.includes('quote')) {
+  } else if (isSvg && (decodedText.includes('WhatsApp') || decodedText.includes('Sarah Jenkins'))) {
     contentType = 'chat_message';
     title = 'Client WhatsApp Inquiry from Sarah Jenkins';
     summary = 'Urgent customer message requesting contract review and quotation confirmation by Friday 5 PM.';
@@ -116,7 +129,7 @@ function generateClientFallbackAnalysis(
       dates_or_deadlines: 'Friday, 5:00 PM',
       phones: ['+1 (555) 349-2041'],
     };
-  } else if (str.includes('congress') || str.includes('conference') || str.includes('moscone') || str.includes('event')) {
+  } else if (isSvg && (decodedText.includes('Moscone') || decodedText.includes('World Congress'))) {
     contentType = 'event_poster';
     title = 'AI Vision & Agents World Congress 2026';
     summary = 'Annual World Congress poster for AI vision and autonomous agents taking place at Moscone West Center, San Francisco.';
@@ -125,7 +138,7 @@ function generateClientFallbackAnalysis(
       location_or_venue: 'Moscone West Center, 747 Howard St, San Francisco, CA',
       urls: ['https://aivisioncongress2026.org/register'],
     };
-  } else if (str.includes('receipt') || str.includes('coffee') || str.includes('bistro') || str.includes('bottle')) {
+  } else if (isSvg && (decodedText.includes('Blue Bottle') || decodedText.includes('Receipt'))) {
     contentType = 'receipt_invoice';
     title = 'Blue Bottle Coffee & Bistro Receipt';
     summary = 'Itemized store receipt totaling $82.08 from Blue Bottle Coffee on October 24, 2026.';
@@ -140,7 +153,7 @@ function generateClientFallbackAnalysis(
         { name: 'Sparkling Mineral Water (x2)', amount: '$8.00' },
       ],
     };
-  } else if (str.includes('card') || str.includes('elena') || str.includes('robotics')) {
+  } else if (isSvg && (decodedText.includes('Elena Rostova') || decodedText.includes('Cyberdyne'))) {
     contentType = 'contact_card';
     title = 'Dr. Elena Rostova - VP of Robotics';
     summary = 'Business card for Dr. Elena Rostova, VP of Robotics at Cyberdyne Dynamics Inc.';
@@ -151,10 +164,12 @@ function generateClientFallbackAnalysis(
       emails: ['elena.rostova@cyberdyne-ai.io'],
       location_or_venue: '500 Technology Square, Cambridge, MA',
     };
-  } else if (str.includes('otp') || str.includes('card number') || str.includes('passcode')) {
+  } else if (isSvg && (decodedText.includes('Passcode') || decodedText.includes('Credit Card'))) {
     contentType = 'code_error';
     title = 'Banking Passcode & Card Screen';
     summary = 'Screen detected containing private verification passcode and payment card details.';
+    sensitiveDetected = true;
+    sensitiveWarning = 'Security Agent detected one-time verification passcode. Redaction advised.';
   }
 
   return {
@@ -166,21 +181,19 @@ function generateClientFallbackAnalysis(
     summary,
     detected_title: title,
     ocr_text: `${title}\n${summary}\n${JSON.stringify(entities)}`,
-    sensitive_data_detected: str.includes('otp') || str.includes('card number'),
-    sensitive_data_warning: str.includes('otp')
-      ? 'Security Agent detected one-time verification passcode. Redaction advised.'
-      : undefined,
+    sensitive_data_detected: sensitiveDetected,
+    sensitive_data_warning: sensitiveWarning,
     entities,
     user_intent: 'Execute immediate application or app intent',
     recommended_actions: [
       { id: 'action-1', label: 'Launch in Action Router', priority: 1 },
-      { id: 'action-2', label: 'Match CV & Requirements', priority: 2 },
+      { id: 'action-2', label: 'Extract Text / OCR Content', priority: 2 },
       { id: 'action-3', label: 'Ask AI Contextual Question', priority: 3 },
     ],
     suggested_questions: [
-      'What are the core qualifications required?',
-      'Draft a professional reply to this',
-      'What is the next deadline?',
+      'What is the key announcement or topic in this image?',
+      'Can you extract all phone numbers and addresses?',
+      'Summarize the details into bullet points',
     ],
     tags: ['AI-Detected', contentType, 'Action-Ready'],
     processedOnceOnly: options.processOnce,

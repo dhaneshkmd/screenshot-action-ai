@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { SAMPLE_SCREENSHOTS } from '../data/sampleScreenshots';
 import { SampleScreenshot } from '../types';
+import { optimizeImageForUpload } from '../utils/imageCompressor';
 
 interface HeroUploadProps {
   onSelectScreenshot: (imageDataUri: string, sample?: SampleScreenshot) => void;
@@ -44,19 +45,24 @@ export const HeroUpload: React.FC<HeroUploadProps> = ({
     }
   };
 
-  const processFile = (file: File) => {
+  const processFile = async (file: File) => {
     if (!file.type.startsWith('image/')) {
       alert('Please upload an image file (PNG, JPEG, WebP, or SVG).');
       return;
     }
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const result = event.target?.result as string;
-      if (result) {
-        onSelectScreenshot(result);
-      }
-    };
-    reader.readAsDataURL(file);
+    try {
+      const optimizedUri = await optimizeImageForUpload(file);
+      onSelectScreenshot(optimizedUri);
+    } catch {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result as string;
+        if (result) {
+          onSelectScreenshot(result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleDrag = (e: React.DragEvent) => {

@@ -18,6 +18,7 @@ import {
   SubscriptionTierType,
 } from './types';
 import { analyzeScreenshot, checkServerHealth } from './services/api';
+import { optimizeImageForUpload } from './utils/imageCompressor';
 import { Sparkles, Loader2, ShieldCheck, Zap } from 'lucide-react';
 
 // Default Career Profile pre-loaded for instant Job Matching demo
@@ -147,18 +148,20 @@ export default function App() {
     sample?: SampleScreenshot
   ) => {
     setIsAnalyzing(true);
-    setAnalysisStep('Uploading securely & compressing image...');
+    setAnalysisStep('Optimizing image for fast vision upload...');
 
     try {
+      const optimizedUri = await optimizeImageForUpload(imageDataUri);
+
       setTimeout(() => {
         setAnalysisStep('Vision Agent: scanning sensitive PII & OCR...');
-      }, 500);
+      }, 400);
 
       setTimeout(() => {
         setAnalysisStep('Classifying intent & extracting structured entities...');
-      }, 1000);
+      }, 900);
 
-      const result = await analyzeScreenshot(imageDataUri, {
+      const result = await analyzeScreenshot(optimizedUri, {
         processOnce: processOnceOnly,
       });
 
@@ -190,15 +193,20 @@ export default function App() {
   };
 
   // Custom file upload handler from share modal or picker
-  const handleCustomFileUpload = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const dataUri = e.target?.result as string;
-      if (dataUri) {
-        handleSelectScreenshot(dataUri);
-      }
-    };
-    reader.readAsDataURL(file);
+  const handleCustomFileUpload = async (file: File) => {
+    try {
+      const optimizedUri = await optimizeImageForUpload(file);
+      handleSelectScreenshot(optimizedUri);
+    } catch {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataUri = e.target?.result as string;
+        if (dataUri) {
+          handleSelectScreenshot(dataUri);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   // Memory history actions
