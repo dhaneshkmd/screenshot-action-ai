@@ -16,6 +16,14 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 
+// Normalize URL prefix for Vercel serverless rewrites
+app.use((req, res, next) => {
+  if (req.url.startsWith('/v1/')) {
+    req.url = '/api' + req.url;
+  }
+  next();
+});
+
 // Initialize GoogleGenAI client per guidelines
 const apiKey = process.env.GEMINI_API_KEY || '';
 const ai = apiKey
@@ -507,4 +515,9 @@ async function startServer() {
   });
 }
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
+
+export default app;
+

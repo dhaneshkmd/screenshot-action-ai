@@ -89,6 +89,7 @@ export default function App() {
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showArchSpec, setShowArchSpec] = useState(false);
   const [showConnectedApps, setShowConnectedApps] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Career profile state
   const [careerProfile, setCareerProfile] = useState<CareerProfile>(() => {
@@ -179,7 +180,9 @@ export default function App() {
         });
       }
     } catch (err: any) {
-      alert('Analysis failed: ' + (err.message || 'Error communicating with server'));
+      console.error('[SnapAction AI Error]', err);
+      setToastMessage(err.message || 'Unable to reach backend model. Fallback mode enabled.');
+      setTimeout(() => setToastMessage(null), 5000);
     } finally {
       setIsAnalyzing(false);
       setAnalysisStep('');
@@ -260,6 +263,18 @@ export default function App() {
         serverStatus={serverStatus}
         onResetToHome={() => setActiveAnalysis(null)}
       />
+
+      {toastMessage && (
+        <div className="w-full bg-amber-500/20 border-y border-amber-500/40 px-4 py-2 text-xs text-amber-200 flex items-center justify-between animate-in fade-in">
+          <span>{toastMessage}</span>
+          <button
+            onClick={() => setToastMessage(null)}
+            className="text-amber-300 hover:text-white font-bold ml-4"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       <main className="flex-1 flex flex-col justify-start">
         {isAnalyzing ? (
