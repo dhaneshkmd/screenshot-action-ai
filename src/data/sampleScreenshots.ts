@@ -316,6 +316,107 @@ const sensitiveDataSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" he
   <text x="300" y="335" fill="#EF233C" font-family="sans-serif" font-weight="bold" font-size="14" text-anchor="middle">"Process Once — Do Not Save" privacy safeguard.</text>
 </svg>`;
 
+// 8. Flight Booking / Itinerary
+const flightBookingSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="700" height="500" viewBox="0 0 700 500" fill="none">
+  <rect width="700" height="500" fill="#0B132B" />
+  <rect x="30" y="30" width="640" height="440" rx="16" fill="#1C2541" stroke="#3A506B" stroke-width="2" />
+  
+  <rect x="50" y="50" width="600" height="70" rx="12" fill="#D90429" />
+  <text x="75" y="92" fill="#FFFFFF" font-family="sans-serif" font-weight="bold" font-size="24">EMIRATES AIRWAYS • FLIGHT EK-203</text>
+  <text x="540" y="92" fill="#FFFFFF" font-family="sans-serif" font-size="16">CONFIRMED</text>
+
+  <rect x="50" y="140" width="280" height="130" rx="12" fill="#0B132B" />
+  <text x="70" y="175" fill="#8D99AE" font-family="sans-serif" font-size="14">DEPARTURE</text>
+  <text x="70" y="215" fill="#64DFDF" font-family="sans-serif" font-weight="bold" font-size="32">DXB (Dubai)</text>
+  <text x="70" y="245" fill="#E0FBFC" font-family="sans-serif" font-size="14">Terminal 3 • Oct 25, 02:45 AM</text>
+
+  <rect x="370" y="140" width="280" height="130" rx="12" fill="#0B132B" />
+  <text x="390" y="175" fill="#8D99AE" font-family="sans-serif" font-size="14">ARRIVAL</text>
+  <text x="390" y="215" fill="#64DFDF" font-family="sans-serif" font-weight="bold" font-size="32">JFK (New York)</text>
+  <text x="390" y="245" fill="#E0FBFC" font-family="sans-serif" font-size="14">Terminal 4 • Oct 25, 08:30 AM</text>
+
+  <rect x="50" y="290" width="600" height="80" rx="12" fill="#141E33" stroke="#3A506B" stroke-width="1" />
+  <text x="75" y="325" fill="#8D99AE" font-family="sans-serif" font-size="13">PASSENGER: MARCUS VANCE</text>
+  <text x="75" y="350" fill="#FFFFFF" font-family="monospace" font-weight="bold" font-size="15">SEAT: 14A (Business) • PNR: EK98X7</text>
+  <text x="440" y="335" fill="#E0FBFC" font-family="sans-serif" font-size="13">Baggage: 2x 32kg included</text>
+
+  <text x="50" y="410" fill="#64DFDF" font-family="sans-serif" font-size="14">AI Travel Agent: Syncs to Calendar, generates packing checklist &amp; flight tracking.</text>
+</svg>`;
+
+// 9. Terminal Code Error / Bug
+const terminalCodeSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="700" height="450" viewBox="0 0 700 450" fill="none">
+  <rect width="700" height="450" fill="#181825" />
+  <rect x="30" y="30" width="640" height="390" rx="12" fill="#11111B" stroke="#313244" stroke-width="2" />
+  
+  <circle cx="60" cy="55" r="6" fill="#F38BA8" />
+  <circle cx="80" cy="55" r="6" fill="#F9E2AF" />
+  <circle cx="100" cy="55" r="6" fill="#A6E3A1" />
+  <text x="130" y="60" fill="#A6ADC8" font-family="monospace" font-size="13">terminal - npm run dev - Next.js 14</text>
+
+  <text x="50" y="110" fill="#F38BA8" font-family="monospace" font-weight="bold" font-size="15">⨯ Error: Text content does not match server-rendered HTML.</text>
+  <text x="50" y="140" fill="#CDD6F4" font-family="monospace" font-size="13">Warning: Expected server HTML to contain a matching &lt;span&gt; in &lt;Header&gt;.</text>
+  <text x="50" y="180" fill="#FAB387" font-family="monospace" font-size="13">  at Header (src/components/Header.tsx:42:15)</text>
+  <text x="50" y="210" fill="#FAB387" font-family="monospace" font-size="13">  at Layout (src/app/layout.tsx:18:24)</text>
+  <text x="50" y="240" fill="#A6ADC8" font-family="monospace" font-size="13">  digest: "1482903211"</text>
+
+  <rect x="50" y="280" width="600" height="110" rx="8" fill="#181825" stroke="#45475A" stroke-width="1" />
+  <text x="70" y="315" fill="#89B4FA" font-family="monospace" font-weight="bold" font-size="14">AI Code Agent Suggestion:</text>
+  <text x="70" y="345" fill="#A6E3A1" font-family="monospace" font-size="13">Use 'useEffect' or 'suppressHydrationWarning' on client timestamp elements.</text>
+  <text x="70" y="370" fill="#CDD6F4" font-family="monospace" font-size="13">Click "Debug Code" to generate the patched defensive TypeScript component.</text>
+</svg>`;
+
+// 10. Malayalam Newspaper Clipping
+const malayalamNewsSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="700" height="750" viewBox="0 0 700 750" fill="none">
+  <rect width="700" height="750" fill="#F8FAFC" />
+  <rect x="25" y="25" width="650" height="700" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" />
+  
+  <rect x="45" y="45" width="610" height="50" fill="#0284C7" />
+  <text x="65" y="77" fill="#FFFFFF" font-family="sans-serif" font-weight="bold" font-size="20">മലയാള മനോരമ • നല്ല പ്രായം ക്യാമ്പയിൻ</text>
+
+  <text x="50" y="145" fill="#0F172A" font-family="sans-serif" font-weight="bold" font-size="30">കയ്യിലുണ്ടോ</text>
+  <text x="50" y="190" fill="#0284C7" font-family="sans-serif" font-weight="bold" font-size="34">നല്ല പ്രായക്കാർക്ക്</text>
+  <text x="50" y="235" fill="#0F172A" font-family="sans-serif" font-weight="bold" font-size="34">നല്ലൊരു പേര് ?</text>
+
+  <rect x="50" y="260" width="380" height="40" rx="8" fill="#E0F2FE" />
+  <text x="65" y="287" fill="#0369A1" font-family="sans-serif" font-weight="bold" font-size="16">മുതിർന്ന പൗരരെ വിശേഷിപ്പിക്കാൻ മികച്ച പേര് നിർദേശിക്കാം</text>
+
+  <rect x="50" y="320" width="600" height="230" rx="12" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5" />
+  <text x="75" y="360" fill="#334155" font-family="sans-serif" font-size="17">വൃദ്ധർ, വയോധികർ എന്നിവയ്ക്കു പകരം എല്ലാവർക്കും അഭിമാനകരമായ</text>
+  <text x="75" y="395" fill="#334155" font-family="sans-serif" font-size="17">നല്ലൊരു പേര് മനസ്സിലുണ്ടെങ്കിൽ നിർദ്ദേശിക്കൂ. സമ്മാനം നേടൂ.</text>
+  <text x="75" y="440" fill="#0F172A" font-family="sans-serif" font-weight="bold" font-size="19">തിരഞ്ഞെടുക്കപ്പെടുന്ന പേരിന് 5000 രൂപ സമ്മാനം!</text>
+  
+  <rect x="75" y="470" width="550" height="60" rx="10" fill="#22C55E" />
+  <text x="100" y="508" fill="#FFFFFF" font-family="sans-serif" font-weight="bold" font-size="22">വാട്സാപ്പ് നമ്പർ: 98460 61029</text>
+
+  <text x="50" y="600" fill="#64748B" font-family="sans-serif" font-size="14">AI Multilingual Agent: Reads Malayalam script, extracts WhatsApp contact, cash prize &amp; drafts reply.</text>
+</svg>`;
+
+// 11. E-Commerce Product Specifications
+const productHeadphonesSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="700" height="550" viewBox="0 0 700 550" fill="none">
+  <rect width="700" height="550" fill="#090A0F" />
+  <rect x="30" y="30" width="640" height="490" rx="16" fill="#12141D" stroke="#25293A" stroke-width="2" />
+  
+  <rect x="50" y="50" width="220" height="220" rx="16" fill="#1C2030" stroke="#2F354D" stroke-width="1" />
+  <circle cx="160" cy="160" r="70" stroke="#60A5FA" stroke-width="8" stroke-dasharray="10 5" fill="none" />
+  <text x="160" y="168" fill="#93C5FD" font-family="sans-serif" font-weight="bold" font-size="18" text-anchor="middle">HEADPHONES</text>
+
+  <text x="290" y="85" fill="#60A5FA" font-family="sans-serif" font-size="14" font-weight="bold">SONY OFFICIAL STORE</text>
+  <text x="290" y="125" fill="#FFFFFF" font-family="sans-serif" font-weight="bold" font-size="26">Sony WH-1000XM5 ANC</text>
+  <text x="290" y="155" fill="#94A3B8" font-family="sans-serif" font-size="15">Wireless Noise-Canceling Overhead Headphones</text>
+
+  <text x="290" y="210" fill="#34D399" font-family="sans-serif" font-weight="bold" font-size="34">$398.00</text>
+  <text x="440" y="200" fill="#64748B" font-family="sans-serif" font-size="16" text-decoration="line-through">$449.99</text>
+  <text x="440" y="225" fill="#F87171" font-family="sans-serif" font-weight="bold" font-size="13">SAVE $51.99 (12% OFF)</text>
+
+  <rect x="50" y="290" width="600" height="140" rx="12" fill="#181B26" border="1" />
+  <text x="75" y="325" fill="#E2E8F0" font-family="sans-serif" font-weight="bold" font-size="15">CORE SPECIFICATIONS:</text>
+  <text x="75" y="355" fill="#94A3B8" font-family="sans-serif" font-size="14">• Industry Leading Noise Cancellation with 8 microphones</text>
+  <text x="75" y="380" fill="#94A3B8" font-family="sans-serif" font-size="14">• Up to 30-hour battery life with quick charging (3 min = 3 hours)</text>
+  <text x="75" y="405" fill="#94A3B8" font-family="sans-serif" font-size="14">• Multipoint connection: Seamlessly switch between laptop &amp; smartphone</text>
+
+  <text x="50" y="480" fill="#38BDF8" font-family="sans-serif" font-size="14">AI Shopping Agent: Compares Amazon, Best Buy &amp; B&amp;H Photo prices with price tracking.</text>
+</svg>`;
+
 export const SAMPLE_SCREENSHOTS: SampleScreenshot[] = [
   {
     id: 'sample-job',
@@ -336,6 +437,46 @@ export const SAMPLE_SCREENSHOTS: SampleScreenshot[] = [
     thumbnailSvg: '📊',
     imageDataUri: svgToDataUri(saasDashboardSvg),
     description: 'Complex visual UI layout. Tests AI decomposition into Flutter / React prompts for Cursor, Claude, ChatGPT, and technical specifications.',
+  },
+  {
+    id: 'sample-flight',
+    title: 'Flight Itinerary EK203',
+    subtitle: 'Emirates Dubai (DXB) ✈ New York (JFK), Seat 14A',
+    category: 'travel_itinerary',
+    badge: 'Travel Concierge',
+    thumbnailSvg: '✈️',
+    imageDataUri: svgToDataUri(flightBookingSvg),
+    description: 'Airline boarding details with departure/arrival terminals, booking PNR, and 1-tap iCal sync.',
+  },
+  {
+    id: 'sample-code',
+    title: 'Terminal Code Error',
+    subtitle: 'Next.js 14 React Hydration Mismatch in Header.tsx',
+    category: 'code_error',
+    badge: 'Code Debugger',
+    thumbnailSvg: '💻',
+    imageDataUri: svgToDataUri(terminalCodeSvg),
+    description: 'Terminal stack trace. Tests automatic error diagnosis, defensive bug fixing, and unit test authoring.',
+  },
+  {
+    id: 'sample-newspaper',
+    title: 'Malayalam Newspaper Contest',
+    subtitle: 'Malayala Manorama - Senior Citizen Naming (₹5,000 Prize)',
+    category: 'document_note',
+    badge: 'Multilingual OCR',
+    thumbnailSvg: '📰',
+    imageDataUri: svgToDataUri(malayalamNewsSvg),
+    description: 'Regional script clipping. Tests Malayalam OCR, WhatsApp phone extraction (98460 61029), and bilingual translation.',
+  },
+  {
+    id: 'sample-product',
+    title: 'Sony Headphones Specs',
+    subtitle: 'Sony WH-1000XM5 Noise Canceling ($398, Specs)',
+    category: 'product_shopping',
+    badge: 'Price Intelligence',
+    thumbnailSvg: '🎧',
+    imageDataUri: svgToDataUri(productHeadphonesSvg),
+    description: 'E-commerce product specifications with price comparison across major retailers and price watch.',
   },
   {
     id: 'sample-chat',

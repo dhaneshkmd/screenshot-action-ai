@@ -1,15 +1,27 @@
 export type ScreenshotContentType =
   | 'job_vacancy'
+  | 'job_advertisement'
   | 'ui_design'
   | 'chat_message'
   | 'event_poster'
+  | 'event_calendar'
   | 'receipt_invoice'
+  | 'banking_payment'
   | 'contact_card'
   | 'location_place'
+  | 'restaurant_food'
+  | 'map_location'
   | 'product_listing'
+  | 'product_shopping'
+  | 'travel_itinerary'
   | 'code_error'
   | 'document_note'
-  | 'general';
+  | 'article_news'
+  | 'study_education'
+  | 'contract_legal'
+  | 'social_media'
+  | 'general'
+  | 'other';
 
 export interface ExtractedEntities {
   job_title?: string;
@@ -20,10 +32,25 @@ export interface ExtractedEntities {
   phones?: string[];
   urls?: string[];
   prices_or_salary?: string;
+  currency?: string;
+  tax_or_vat?: string;
   key_skills_or_tags?: string[];
   line_items?: Array<{ name: string; amount: string }>;
   sender_or_speaker?: string;
   code_language_or_framework?: string;
+  brand?: string;
+  model_or_product_name?: string;
+  specifications?: string[];
+  flight_number?: string;
+  booking_reference?: string;
+  departure_location?: string;
+  arrival_location?: string;
+  hotel_or_stay_name?: string;
+  attendees_or_speakers?: string[];
+  address?: string;
+  qr_code_data?: string;
+  detected_language?: string;
+  contract_parties?: string[];
 }
 
 export interface RecommendedAction {
@@ -33,6 +60,16 @@ export interface RecommendedAction {
   category?: string;
   priority: number;
   icon?: string;
+  action_type?: string;
+  badge?: string;
+}
+
+export interface ConfidenceScores {
+  category_confidence: number;
+  text_confidence: number;
+  intent_confidence: number;
+  overall: number;
+  is_uncertain?: boolean;
 }
 
 export interface ScreenshotAnalysis {
@@ -41,8 +78,10 @@ export interface ScreenshotAnalysis {
   imageBase64: string;
   content_type: ScreenshotContentType;
   confidence: number;
+  confidence_scores?: ConfidenceScores;
   summary: string;
   detected_title?: string;
+  detected_language?: string;
   ocr_text?: string;
   sensitive_data_detected: boolean;
   sensitive_data_warning?: string;
@@ -52,6 +91,40 @@ export interface ScreenshotAnalysis {
   suggested_questions?: string[];
   tags: string[];
   processedOnceOnly?: boolean;
+  collection_id?: string;
+  is_favourite?: boolean;
+  visual_redaction_applied?: boolean;
+}
+
+export interface AgentWorkflowStep {
+  id: string;
+  title: string;
+  description: string;
+  status: 'pending' | 'running' | 'completed' | 'failed';
+  outputPreview?: string;
+  actionData?: any;
+}
+
+export interface AgentWorkflow {
+  id: string;
+  agentType: 'job' | 'travel' | 'finance' | 'content' | 'coding' | 'study' | 'shopping' | 'research';
+  title: string;
+  icon: string;
+  description: string;
+  steps: AgentWorkflowStep[];
+  isCompleted?: boolean;
+}
+
+export interface StudyQuizItem {
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
+export interface StudyFlashcard {
+  front: string;
+  back: string;
 }
 
 export interface CareerProfile {
@@ -69,6 +142,8 @@ export interface CareerProfile {
   preferredRoles: string[];
   cvFileName?: string;
   cvRawText?: string;
+  preferredLanguage?: string;
+  defaultCurrency?: string;
 }
 
 export interface JobMatchResult {
@@ -101,6 +176,10 @@ export interface ContentResult {
   hook: string;
   call_to_action: string;
   alternative_hooks?: string[];
+  twitter_thread?: string[];
+  instagram_caption?: string;
+  youtube_script?: string;
+  hashtags?: string[];
 }
 
 export interface CommunicationReplyResult {
@@ -131,6 +210,7 @@ export interface SubscriptionInfo {
   monthlyQuota: number;
   usedThisMonth: number;
   features: string[];
+  creditsRemaining: number;
 }
 
 // Universal App Connectivity Layer Types
@@ -171,4 +251,13 @@ export interface DispatchedIntentPayload {
   }[];
   rawPayload: Record<string, any>;
   executeAction: (appId: string) => { launchUrl: string; executedDirectly: boolean; notes: string };
+}
+
+export interface SmartCollection {
+  id: string;
+  name: string;
+  icon: string;
+  description: string;
+  categoryFilter?: string;
+  count?: number;
 }

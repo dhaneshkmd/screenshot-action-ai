@@ -170,6 +170,49 @@ function generateClientFallbackAnalysis(
     summary = 'Screen detected containing private verification passcode and payment card details.';
     sensitiveDetected = true;
     sensitiveWarning = 'Security Agent detected one-time verification passcode. Redaction advised.';
+  } else if (isSvg && (decodedText.includes('EK-203') || decodedText.includes('EMIRATES'))) {
+    contentType = 'travel_itinerary';
+    title = 'Emirates Flight EK-203 Booking (DXB ✈ JFK)';
+    summary = 'Flight booking confirmation for Emirates EK-203 from Dubai (DXB) Terminal 3 to New York (JFK) Terminal 4 on Oct 25, 02:45 AM.';
+    entities = {
+      flight_number: 'EK-203',
+      booking_reference: 'EK98X7',
+      departure_location: 'Dubai DXB Terminal 3',
+      arrival_location: 'New York JFK Terminal 4',
+      dates_or_deadlines: 'Oct 25, 2026 • 02:45 AM',
+      location_or_venue: 'Terminal 3, Dubai International Airport',
+      key_skills_or_tags: ['Flight', 'Business Class', 'Emirates', 'Travel Itinerary'],
+    };
+  } else if (isSvg && (decodedText.includes('Hydration') || decodedText.includes('Next.js'))) {
+    contentType = 'code_error';
+    title = 'Next.js 14 React Hydration Mismatch Error';
+    summary = 'Terminal error: Text content did not match server-rendered HTML in Header.tsx:42. Suggests suppressHydrationWarning or useEffect defensive mount.';
+    entities = {
+      code_language_or_framework: 'TypeScript / Next.js 14 / React',
+      key_skills_or_tags: ['Next.js', 'React', 'Hydration', 'Debug', 'Vitest'],
+    };
+  } else if (isSvg && (decodedText.includes('മലയാള മനോരമ') || decodedText.includes('കയ്യിലുണ്ടോ'))) {
+    contentType = 'document_note';
+    title = 'Malayala Manorama - Senior Citizen Naming Contest';
+    summary = 'Newspaper clipping from Malayala Manorama inviting names for senior citizens. Cash prize ₹5,000. Send submissions via WhatsApp to 98460 61029.';
+    entities = {
+      company_or_merchant: 'Malayala Manorama',
+      phones: ['+91 98460 61029'],
+      prices_or_salary: '₹5,000 Cash Prize',
+      detected_language: 'Malayalam',
+      key_skills_or_tags: ['Malayalam', 'Contest', 'WhatsApp Submission', 'Newspaper Clipping'],
+    };
+  } else if (isSvg && (decodedText.includes('WH-1000XM5') || decodedText.includes('SONY'))) {
+    contentType = 'product_shopping';
+    title = 'Sony WH-1000XM5 ANC Wireless Headphones';
+    summary = 'E-commerce specifications for Sony WH-1000XM5 wireless noise-canceling headphones priced at $398.00 (12% off). 30-hour battery life.';
+    entities = {
+      brand: 'Sony Electronics',
+      model_or_product_name: 'WH-1000XM5',
+      prices_or_salary: '$398.00',
+      company_or_merchant: 'Sony Store',
+      key_skills_or_tags: ['Electronics', 'Headphones', 'ANC', 'Price Watch'],
+    };
   }
 
   return {
@@ -408,3 +451,43 @@ export async function generateCommunicationReply(
     key_takeaway: 'Client requesting confirmed project delivery and contract review.',
   };
 }
+
+export function parseNaturalCommand(
+  command: string,
+  analysis: ScreenshotAnalysis
+): { targetTab: string; message: string; actionId: string } {
+  const q = command.toLowerCase().trim();
+
+  if (q.includes('apply') || q.includes('cv') || q.includes('job') || q.includes('resume') || q.includes('cover letter')) {
+    return { targetTab: 'job', message: 'Routing to Job Career & Application Studio...', actionId: 'apply_job' };
+  }
+  if (q.includes('agent') || q.includes('workflow') || q.includes('automate') || q.includes('pipeline')) {
+    return { targetTab: 'agent', message: 'Triggering Autonomous Agent Pipeline...', actionId: 'run_agent' };
+  }
+  if (q.includes('calendar') || q.includes('flight') || q.includes('meeting') || q.includes('event') || q.includes('remind')) {
+    return { targetTab: 'event', message: 'Syncing schedule to Calendar & Productivity...', actionId: 'add_calendar' };
+  }
+  if (q.includes('code') || q.includes('debug') || q.includes('react') || q.includes('flutter') || q.includes('fix') || q.includes('error')) {
+    return { targetTab: 'code_studio', message: 'Opening AI Code & Debugging Studio...', actionId: 'debug_code' };
+  }
+  if (q.includes('prompt') || q.includes('ui') || q.includes('cursor') || q.includes('claude') || q.includes('design') || q.includes('v0')) {
+    return { targetTab: 'prompt', message: 'Generating UI Architecture Prompt...', actionId: 'generate_prompt' };
+  }
+  if (q.includes('translate') || q.includes('study') || q.includes('malayalam') || q.includes('flashcard') || q.includes('quiz') || q.includes('notes')) {
+    return { targetTab: 'study', message: 'Opening Study, Notes & Bilingual Translation...', actionId: 'study_translate' };
+  }
+  if (q.includes('expense') || q.includes('receipt') || q.includes('invoice') || q.includes('csv') || q.includes('tax') || q.includes('bill')) {
+    return { targetTab: 'expense', message: 'Exporting Itemized Ledger & CSV...', actionId: 'extract_expense' };
+  }
+  if (q.includes('product') || q.includes('price') || q.includes('shop') || q.includes('buy') || q.includes('cheaper') || q.includes('amazon')) {
+    return { targetTab: 'shopping', message: 'Comparing Retailers & Price Intelligence...', actionId: 'compare_prices' };
+  }
+  if (q.includes('call') || q.includes('whatsapp') || q.includes('contact') || q.includes('email') || q.includes('message') || q.includes('reply')) {
+    return { targetTab: 'communication', message: 'Launching Contact Intent & Communications...', actionId: 'contact_dispatch' };
+  }
+  if (q.includes('post') || q.includes('linkedin') || q.includes('twitter') || q.includes('tweet') || q.includes('caption') || q.includes('content') || q.includes('social')) {
+    return { targetTab: 'content', message: 'Drafting Multi-Platform Content...', actionId: 'generate_post' };
+  }
+  return { targetTab: 'ask', message: `Querying AI Assistant with: "${command}"...`, actionId: 'ask_ai' };
+}
+

@@ -53,15 +53,15 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
-                SnapAction
+              <span className="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
+                Screenshot Action AI
               </span>
-              <span className="text-xs px-1.5 py-0.5 rounded font-mono font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30">
-                AI
+              <span className="text-[10px] px-1.5 py-0.5 rounded font-mono font-bold bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                ENGINE
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 hidden sm:block">
-              Screenshot Anything. Turn It Into Action.
+            <p className="text-[10px] text-slate-400 hidden sm:block font-medium">
+              Anything you screenshot becomes an action.
             </p>
           </div>
         </button>

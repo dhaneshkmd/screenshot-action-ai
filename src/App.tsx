@@ -316,6 +316,8 @@ export default function App() {
             onBackToHome={() => setActiveAnalysis(null)}
             onSaveToMemory={handleSaveToMemory}
             isSavedInMemory={isSavedInMemory}
+            history={history}
+            onSelectHistoryItem={(item) => setActiveAnalysis(item)}
           />
         ) : (
           <HeroUpload
